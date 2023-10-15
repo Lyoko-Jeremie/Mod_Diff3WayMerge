@@ -1785,7 +1785,7 @@ export class diff_match_patch {
      * @return {!Array.<string|!Array.<boolean>>} Two element Array, containing the
      *      new text and an array of boolean values.
      */
-    public patch_apply(patches: patch_obj[], text: string): (string | boolean[])[] {
+    public patch_apply(patches: patch_obj[], text: string): [string, boolean[]] {
         if (patches.length == 0) {
             return [text, []];
         }
