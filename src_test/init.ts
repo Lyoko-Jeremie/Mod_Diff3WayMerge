@@ -25,23 +25,26 @@ if (true) {
     // console.log("B:", B);
     // console.log("C:", C);
 
-    const diff01 = new diff_match_patch();
-    const diff02 = new diff_match_patch();
+    const diff = new diff_match_patch();
 
-    const d01 = diff01.diff_main(A, B);
-    const d02 = diff01.diff_main(A, C);
+    const d01 = diff.diff_main(A, B);
+    const d02 = diff.diff_main(A, C);
 
-    // console.log("d01:", d01);
-    console.log("d01:", diff01.diff_toDelta(d01));
-    // console.log("d02:", d02);
-    console.log("d02:", diff02.diff_toDelta(d02));
+    console.log("d01:", d01.length);
+    console.log("d01:", d01[1]);
+    console.log("d01:", diff.diff_toDelta(d01));
+    console.log("d01:", diff.diff_fromDelta(A, diff.diff_toDelta(d01))[1]);
+    console.log("d02:", d02.length);
+    console.log("d02:", d02[1]);
+    console.log("d02:", diff.diff_toDelta(d02));
+    console.log("d02:", diff.diff_fromDelta(A, diff.diff_toDelta(d02))[1]);
 
-    // const p1 = diff01.patch_make(A, d01);
-    // const p2 = diff01.patch_make(A, d02);
-    const p1 = diff01.patch_make(A, diff01.diff_fromDelta(A, diff01.diff_toDelta(d01)));
-    const p2 = diff01.patch_make(A, diff01.diff_fromDelta(A, diff01.diff_toDelta(d02)));
+    // const p1 = diff.patch_make(A, d01);
+    // const p2 = diff.patch_make(A, d02);
+    const p1 = diff.patch_make(A, diff.diff_fromDelta(A, diff.diff_toDelta(d01)));
+    const p2 = diff.patch_make(A, diff.diff_fromDelta(A, diff.diff_toDelta(d02)));
 
-    const rr = diff01.patch_apply(p1.concat(p2), A);
+    const rr = diff.patch_apply(p1.concat(p2), A);
     console.log("rr:", rr);
 }
 
