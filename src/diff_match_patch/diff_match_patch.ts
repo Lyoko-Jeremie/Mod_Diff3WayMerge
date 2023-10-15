@@ -71,7 +71,7 @@ export class diff_match_patch {
      *     instead.
      * @return {!Array.<!Diff>} Array of diff tuples.
      */
-    public diff_main(text1: string, text2: string, opt_checklines: boolean, opt_deadline?: number): Diff[] {
+    public diff_main(text1: string, text2: string, opt_checklines: boolean = true, opt_deadline?: number): Diff[] {
         // Set a deadline by which time the diff must be complete.
         if (typeof opt_deadline == 'undefined') {
             if (this.Diff_Timeout <= 0) {
@@ -1638,7 +1638,7 @@ export class diff_match_patch {
      * for text1 to text2 (method 4) or undefined (methods 1,2,3).
      * @return {!Array.<!patch_obj>} Array of Patch objects.
      */
-    public patch_make(a: string | Diff[], opt_b: string | Diff[], opt_c: string | Diff[]): patch_obj[] {
+    public patch_make(a: string | Diff[], opt_b?: string | Diff[], opt_c?: string | Diff[]): patch_obj[] {
         var text1, diffs;
         if (typeof a == 'string' && typeof opt_b == 'string' &&
             typeof opt_c == 'undefined') {
