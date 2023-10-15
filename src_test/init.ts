@@ -45,8 +45,46 @@ if (true) {
     // const p2 = diff.patch_make(A, d02);
     const p1 = diff.patch_make(A, diff.diff_fromDelta(A, diff.diff_toDelta(d01)));
     const p2 = diff.patch_make(A, diff.diff_fromDelta(A, diff.diff_toDelta(d02)));
+    console.log("p1:", p1);
+    console.log("p2:", p2);
 
     const rr = diff.patch_apply(p1.concat(p2), A);
+    console.log("rr:", rr);
+}
+
+if (false) {
+    const A = readFileSync('./test_data/A.txt', 'utf8');
+    const B = readFileSync('./test_data/B.txt', 'utf8');
+    const C = readFileSync('./test_data/C.txt', 'utf8');
+
+    // console.log("A:", A);
+    // console.log("B:", B);
+    // console.log("C:", C);
+
+    const diff = new diff_match_patch();
+
+    const d01 = diff.diff_main(A, B);
+    const d02 = diff.diff_main(B, C);
+
+    // // console.log("d01:", d01);
+    // console.log("d01:", d01.length);
+    // console.log("d01:", d01[1]);
+    // console.log("d01:", diff.diff_toDelta(d01));
+    // console.log("d01:", diff.diff_fromDelta(A, diff.diff_toDelta(d01))[1]);
+    // // console.log("d02:", d02);
+    // console.log("d02:", d02.length);
+    // console.log("d02:", d02[1]);
+    // console.log("d02:", diff.diff_toDelta(d02));
+    // console.log("d02:", diff.diff_fromDelta(A, diff.diff_toDelta(d02))[1]);
+
+    // const p1 = diff.patch_make(A, d01);
+    // const p2 = diff.patch_make(A, d02);
+    // const p1 = diff.patch_make(A, diff.diff_fromDelta(A, diff.diff_toDelta(d01)));
+    // const p2 = diff.patch_make(A, diff.diff_fromDelta(A, diff.diff_toDelta(d02)));
+    const p = diff.patch_make(A, d02);
+    console.log("p:", p);
+
+    const rr = diff.patch_apply(p, A);
     console.log("rr:", rr);
 }
 
