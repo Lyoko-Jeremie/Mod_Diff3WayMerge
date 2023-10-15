@@ -6,20 +6,25 @@
   "scripts": {
     "ts:w": "tsc -w -p ./src_boot/tsconfig.json",
     "webpack:w": "webpack -w -c ./webpack.config.js",
-    "======================": "",
+    "======================1": "",
+    "webpack_test:w": "webpack -w -c ./webpack-test.config.js",
+    "run:test": "node ./dist-test/test.js",
+    "======================2": "",
     "build:ts": "tsc -p ./src_boot/tsconfig.json",
     "build:webpack": "webpack -c ./webpack.config.js"
   },
   "packageManager": "yarn@3.4.1",
   "dependencies": {
-    "@types/diff": "^5.0.5",
     "diff": "^5.1.0",
+    "diff3": "^0.0.4",
     "json5": "^2.2.3",
     "jszip": "^3.10.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4"
   },
   "devDependencies": {
+    "@types/diff": "^5.0.5",
+    "@types/diff3": "^0.0.0",
     "@types/jquery": "^3.5.19",
     "@types/lodash": "^4.14.198",
     "@types/node": "^20.6.0",
