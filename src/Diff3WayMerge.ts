@@ -4,112 +4,18 @@ import type {ModZipReader} from "../../../dist-BeforeSC2/ModZipReader";
 import type {SC2DataManager} from "../../../dist-BeforeSC2/SC2DataManager";
 import type {ModUtils} from "../../../dist-BeforeSC2/Utils";
 import type {LogWrapper} from "../../../dist-BeforeSC2/ModLoadController";
+import type {SC2DataInfo} from "../../../dist-BeforeSC2/SC2DataInfoCache";
 import {isNil, isString, isArray, every, isNumber} from 'lodash';
 import {
     diff_match_patch,
-    Diff,
-    patch_obj,
-    DIFF_DELETE,
-    DIFF_INSERT,
-    DIFF_EQUAL
 } from './diff_match_patch/diff_match_patch';
-import {SC2DataInfo} from "../../../dist-BeforeSC2/SC2DataInfoCache";
+import {checkDiffFormatFile, DiffFormat2Diff, mergeFile} from "./DiffFormat";
+import {checkParams} from "./Diff3WayMergeParams";
 
 export interface ModMergeInfo {
     addonName: string;
     mod: ModInfo;
     modZip: ModZipReader;
-}
-
-export interface DiffFormat {
-    op: number | typeof DIFF_DELETE | typeof DIFF_INSERT | typeof DIFF_EQUAL;
-    text: string;
-}
-
-export function DiffFormat2Diff(l: DiffFormat[]) {
-    return l.map((T) => new Diff(T.op, T.text));
-}
-
-export function checkDiffFormatFile(a: any) {
-    if (isArray(a) && every(a, T => isString(T.text) && isNumber(T.op))) {
-        return true;
-    }
-    return false;
-}
-
-export function checkPatchFileItem(n: PatchFileItem): n is PatchFileItem {
-    if (
-        // @ts-ignore
-        (isString(n.css) + isString(n.js) + isString(n.passage)) !== 1 ||
-        // @ts-ignore
-        (isNil(n.css) + isNil(n.js) + isNil(n.passage)) !== 2
-    ) {
-        return false;
-    }
-    if (!isString(n.fileDiff)) {
-        return false;
-    }
-    if (!isString(n.fileBase)) {
-        return false;
-    }
-    return true;
-}
-
-export interface PatchFileItem {
-    /**
-     * the diff patch file path , the patch file is a diff format file that apply to the base file to get the mod modify
-     * a file contains a list of Diff:  Diff[]
-     *
-     * file content example:
-     * ```json
-     * [
-     *   { op:0, text:'' },
-     *   { op:0, text:'' },
-     *   { op:0, text:'' },
-     *   { op:0, text:'' }
-     * ]
-     * ```
-     *
-     * @type {string}
-     */
-    fileDiff: string;
-    /**
-     * the origin file path
-     */
-    fileBase: string;
-
-    passage?: string;
-    js?: string;
-    css?: string;
-}
-
-export interface Diff3WayMergeParams {
-    patchFileList: PatchFileItem[];
-}
-
-export function checkParams(a: any): a is Diff3WayMergeParams {
-    if (isArray(a) && every(a, checkPatchFileItem)) {
-        return true;
-    }
-    return false;
-}
-
-export function mergeFile(
-    dmp: diff_match_patch,
-    gameFile: string,
-    modBase: string,
-    modDiff: Diff[],
-) {
-    // calc modBase -> modDiff
-    // calc modBase -> gameFile
-    // modBase -> patchTo -> gameFile -> patchTo -> modDiff
-    // we get modBase -> gameFile -> modDiff
-    const d01 = dmp.diff_main(modBase, gameFile);
-    // const d02 = dmp.diff_main(modBase, modDiff);
-    const p1 = dmp.patch_make(modBase, d01);
-    const p2 = dmp.patch_make(modBase, modDiff);
-    const rr = dmp.patch_apply(p1.concat(p2), modBase);
-    return rr;
 }
 
 export class Diff3WayMerge implements AddonPluginHookPointEx {
@@ -257,6 +163,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
             return undefined;
         }
         const dd = await fd.async('string');
+        // @ts-ignore
         let d: DiffFormat[];
         try {
             d = JSON.parse(dd);
