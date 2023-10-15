@@ -30,10 +30,12 @@ if (true) {
     const d01 = diff.diff_main(A, B);
     const d02 = diff.diff_main(A, C);
 
+    // console.log("d01:", d01);
     console.log("d01:", d01.length);
     console.log("d01:", d01[1]);
     console.log("d01:", diff.diff_toDelta(d01));
     console.log("d01:", diff.diff_fromDelta(A, diff.diff_toDelta(d01))[1]);
+    // console.log("d02:", d02);
     console.log("d02:", d02.length);
     console.log("d02:", d02[1]);
     console.log("d02:", diff.diff_toDelta(d02));

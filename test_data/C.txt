@@ -29,30 +29,30 @@
 	<<init_tips>>
 
 	<<set setup.baseNNPC = {penis : 0, vagina: 0, gender: "none", description: 0, title: 0, insecurity: 0, pronoun: "none", penissize: 0, penisdesc: "none", bottomsize: 0, ballssize: 0, breastsize: 0, breastdesc: 0, breastsdesc: 0, skincolour: 0, teen: 0, adult: 0, init: 0, intro: 0, type: "human", trust: 0, love: 0, dom: 0, lust: 0, rage: 0, state: "", trauma: 0, eyeColour: 0, hairColour: 0, chastity: {penis: "", vagina: "", anus: ""}}>>
-	<<set setup.NPCNameList = ["Avery","Bailey","Briar","Charlie","Darryl","Doren","Eden","Gwylan","Harper","Jordan","Kylar","Landry","Leighton","Mason","Morgan","River","Robin","Sam","Sirris","Whitney","Winter","Black Wolf","Niki","Quinn","Remy","Alex","Great Hawk","Wren","Sydney","Ivory Wraith","Zephyr","BBB"]>>
+	<<set setup.NPCNameList = ["Avery","Bailey","Briar","Charlie","Darryl","Doren","Eden","Gwylan","Harper","Jordan","Kylar","Landry","Leighton","Mason","Morgan","River","Robin","Sam","Sirris","Whitney","Winter","Black Wolf","Niki","Quinn","Remy","Alex","Great Hawk","Wren","Sydney","Ivory Wraith","Zephyr"]>>
 
 	/* this initialises the C.npc object */
 	<<run initCNPC()>>
 
 	<<set setup.crimeNames to {
-		assault: "assault",
-		coercion: "coercion",
-		destruction: "destruction of property",
-		exposure: "indecent exposure",
-		obstruction: "obstruction of justice",
-		prostitution: "prostitution",
-		resisting: "resisting arrest",
-		thievery: "thievery",
-		petty: "petty thievery",
-		trespassing: "trespassing",
+		assault: "侵袭",
+		coercion: "胁迫",
+		destruction: "毁坏财产",
+		exposure: "猥亵露体",
+		obstruction: "妨碍司法",
+		prostitution: "卖淫",
+		resisting: "拒捕",
+		thievery: "盗窃",
+		petty: "小偷小摸",
+		trespassing: "非法侵入",
 	}>>
 
 	<<set setup.crimeDescs to {
-		default: "general",
-		legacy: "a string of crimes that slipped through the cracks",
-		escape: "escaping prison",
-		cake: "a high-profile theft involving a noble's wedding cake",
-		kylarPrison: "assisting in a prison escape",
+		default: "通常",
+		legacy: "一连串水落石出的罪行",
+		escape: "越狱",
+		cake: "一桩引人瞩目的盗窃案，涉及一位贵族的婚礼蛋糕",
+		kylarPrison: "协助越狱",
 	}>>
 
 	/* this initialises the C.crime object */
@@ -682,11 +682,11 @@
 	}>>
 
 	<<set setup.npcPenisRemarks to {
-		"big": ["Your body feels weak at the sight.","You shudder at the sight.","You moan involuntarily at its size.","You gasp at its massive girth.","Your thighs feel weak as you look on."],
-		"small": ["You stifle a laugh at the sight.","You smirk at the sight.","You stifle a chuckle at the sight.","You stifle a giggle at the sight.","You try not to laugh."]
+		"big": ["你看到它的巨大尺寸，觉得自己很无助。","你看到它的巨大尺寸，浑身开始颤抖。","你在它巨大的尺寸下不由地哀嚎起来。","你被它巨大的尺寸给震住了。","你看到它的巨大尺寸，双腿开始发软。"],
+		"small": ["当你看到那个牙签的时候，你笑的眼泪都流出来了。","当你看到那个牙签的时候，你笑出了声。","当你看到那个牙签的时候，你笑了起来。","当你看到那个牙签的时候，你笑了。","你强忍着不笑那个牙签。"]
 	}>>
 
-	<<set setup.breastsizes to ["", "budding", "tiny", "small", "pert", "modest", "full", "large", "ample", "massive", "huge", "gigantic", "enormous"]>>
+	<<set setup.breastsizes to ["", "微隆的", "小巧的", "偏小的", "坚挺的", "适中的", "饱满的", "硕大的", "丰腴的", "高耸的", "巨大的", "庞大的", "宏伟的"]>>
 
 	<<set setup.NPCVirginityTypes to {"anal": false, "oral": false, "penile": false, "vaginal": false, "handholding": false, "temple": false, "kiss": false}>>
 	<<set setup.NPCVirginityTypesVirgin to {"anal": true, "oral": true, "penile": true, "vaginal": true, "handholding": true, "temple": false, "kiss": true}>>
@@ -694,82 +694,82 @@
 	<<set setup.pharmacyItems to {
 		"penis_reduction": {
 			"type": "penis reduction",
-			"name": "penis reduction pills",
+			"name": "penis reduction pills", "cn_name": "阴茎生长抑制药",
 			"price": 15000,
 		},
 		"penis_growth": {
 			"type": "penis growth",
-			"name": "penis growth pills",
+			"name": "penis growth pills", "cn_name": "阴茎生长促进药",
 			"price": 15000,
 		},
 		"penis_blocker": {
 			"type": "penis blocker",
-			"name": "penis growth blocker pills",
+			"name": "penis growth blocker pills", "cn_name": "阴茎生长阻断药",
 			"price": 20000,
 		},
 		"breast_reduction": {
 			"type": "breast reduction",
-			"name": "breast reduction pills",
+			"name": "breast reduction pills", "cn_name": "乳房生长抑制药",
 			"price": 15000,
 		},
 		"breast_growth": {
 			"type": "breast growth",
-			"name": "breast growth pills",
+			"name": "breast growth pills", "cn_name": "乳房生长促进药",
 			"price": 15000,
 		},
 		"breast_blocker": {
 			"type": "breast blocker",
-			"name": "breast growth blocker pills",
+			"name": "breast growth blocker pills", "cn_name": "乳房生长阻断药",
 			"price": 20000,
 		},
 		"bottom_reduction": {
 			"type": "bottom reduction",
-			"name": "bottom reduction pills",
+			"name": "bottom reduction pills", "cn_name": "臀部生长抑制药",
 			"price": 15000,
 		},
 		"bottom_growth": {
 			"type": "bottom growth",
-			"name": "bottom growth pills",
+			"name": "bottom growth pills", "cn_name": "臀部生长促进药",
 			"price": 15000,
 		},
 		"bottom_blocker": {
 			"type": "bottom blocker",
-			"name": "bottom growth blocker pills",
+			"name": "bottom growth blocker pills", "cn_name": "臀部生长阻断药",
 			"price": 20000,
 		},
 		"Anti-Parasite Cream": {
 			"type": "Anti-Parasite Cream",
-			"name": "Anti-parasite Cream",
+			"name": "Anti-parasite Cream", "cn_name": "抗寄生虫药膏",
 			"price": 25000,
 		},
 		"condoms": {
 			"type": "condoms",
-			"name": "condoms",
+			"name": "condoms", "cn_name": "安全套",
 			"price": 6000,
 		},
 		"pregnancy_test": {
 			"type": "pregnancy test",
-			"name": "pregnancy test",
+			"name": "pregnancy test", "cn_name": "孕检",
 			"price": 2500,
 		},
 		"fertility_pills": {
 			"type": "fertility booster",
-			"name": "fertility booster",
+			"name": "fertility booster", "cn_name": "促孕药",
 			"price": 50000,
 		},
 		"contraceptive_pills": {
 			"type": "contraceptive",
-			"name": "contraceptive",
+			"name": "contraceptive", "cn_name": "避孕药",
 			"price": 25000,
 		},
 		"Morning_After_pill": {
 			"type": "Morning After pill",
-			"name": "Morning After pill",
+			"name": "Morning After pill", "cn_name": "事后避孕药",
 			"price": 200,
 		},
 		"breast_pump": {
 			"type": "Breast Pump",
-			"name": "Breast Pump",
+			"name": "Breast Pump", "cn_name": "挤奶器",
 			"price": 5000,
 		},
 
