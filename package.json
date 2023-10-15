@@ -6,12 +6,14 @@
   "scripts": {
     "ts:w": "tsc -w -p ./src_boot/tsconfig.json",
     "webpack:w": "webpack -w -c ./webpack.config.js",
+    "tool:w": "webpack -w -c ./webpack-tool.config.js",
     "======================1": "",
     "webpack_test:w": "webpack -w -c ./webpack-test.config.js",
     "run:test": "node ./dist-test/test.js",
     "======================2": "",
     "build:ts": "tsc -p ./src_boot/tsconfig.json",
-    "build:webpack": "webpack -c ./webpack.config.js"
+    "build:webpack": "webpack -c ./webpack.config.js",
+    "tool": "webpack -c ./webpack-tool.config.js"
   },
   "packageManager": "yarn@3.4.1",
   "dependencies": {
