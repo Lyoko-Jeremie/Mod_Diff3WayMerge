@@ -16,15 +16,16 @@ this mod export addon:
       "params": {
         "patchFileList": [
           {
-            // the diff file that will patch to base file
+            // the info of modify that mod want to do in the game, provide as a diff file, it is calc base on fileBase
             // mod 对游戏的修改，以 diff 文件的形式提供，这个修改基于 fileBase 计算产生
             "fileDiff": "pathTo/passageA.diff",
-            // the origin file that need to patch (it come from game and not change)
-            // 来自游戏的原始文件，上面的 fileDiff 应用到这个文件上后产生的结果是mod说期望的结果
+            // 来自游戏的原始文件，上面的 fileDiff 应用到这个文件上后产生的结果是mod所期望的结果
+            // this file come from origin game, the result of apply fileDiff to this file is what mod want to do
             "fileBase": "pathTo/passageA.txt",
-            // the passage name that will be patched in game
-            // 游戏中的 passage 名称，这个名称是游戏中的 passage 名称，不是文件名。
+            // 游戏中的 passage 名称，这个名称是twee中的 passage 名称，不是文件名。
+            // the passage name in the game, this name is the passage name in the twee, not the file name.
             // 这个patch需要应用到的游戏中的passage 名称
+            // the passage name in the game that this patch need to apply to
             "passage": "passageA"
           },
           {
@@ -41,6 +42,7 @@ this mod export addon:
             "fileDiff": "pathTo/aaa_js.diff",
             "fileBase": "pathTo/aaa.js",
             // 这个patch需要应用到的游戏中的 js 文件
+            // the js file in the game that this patch need to apply to
             "js": "aaa.js"
           },
           {
@@ -66,6 +68,9 @@ this mod export addon:
 ```
 
 `fileDiff.diff` 文件使用 [generateDiff.ts](tool%2FgenerateDiff.ts) 中的 `generateDiff()`函数生成，大致格式如下 ， `DiffFormat[]`
+
+`fileDiff.diff` file is generate by `generateDiff()` function in [generateDiff.ts](tool%2FgenerateDiff.ts), the format is `DiffFormat[]`
+
 
 ```json lines
 [
