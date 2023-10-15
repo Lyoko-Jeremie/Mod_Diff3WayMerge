@@ -36,8 +36,10 @@ if (true) {
     // console.log("d02:", d02);
     console.log("d02:", diff02.diff_toDelta(d02));
 
-    const p1 = diff01.patch_make(A, d01);
-    const p2 = diff01.patch_make(A, d02);
+    // const p1 = diff01.patch_make(A, d01);
+    // const p2 = diff01.patch_make(A, d02);
+    const p1 = diff01.patch_make(A, diff01.diff_fromDelta(A, diff01.diff_toDelta(d01)));
+    const p2 = diff01.patch_make(A, diff01.diff_fromDelta(A, diff01.diff_toDelta(d02)));
 
     const rr = diff01.patch_apply(p1.concat(p2), A);
     console.log("rr:", rr);
