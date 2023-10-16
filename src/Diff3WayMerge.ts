@@ -93,8 +93,11 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
-                    console.error('Diff3WayMerge do_patch() cannot merge file failed:', r[2].filter((T, i) => r[1][i]));
-                    this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r.filter(T => !T).length}]`);
+                    console.error('Diff3WayMerge do_patch() cannot merge file failed:',
+                        r[1].filter(T => !T).length,
+                        r[2].filter((T, i) => !r[1][i]));
+                    console.error('Diff3WayMerge do_patch() merge file failed result:', [f.content]);
+                    this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r[1].filter(T => !T).length}]`);
                     continue;
                 }
                 f.content = r[0];
@@ -106,15 +109,18 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 }
                 const f = sc.styleFileItems.map.get(p.css);
                 if (!f) {
-                    console.error('Diff3WayMerge do_patch() cannot find file.', [ri.mod, p.js]);
-                    this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.js}]`);
+                    console.error('Diff3WayMerge do_patch() cannot find file.', [ri.mod, p.css]);
+                    this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.css}]`);
                     continue;
                 }
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
-                    console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
-                    console.error('Diff3WayMerge do_patch() cannot merge file failed:', r[2].filter((T, i) => r[1][i]));
-                    this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r.filter(T => !T).length}]`);
+                    console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.css, r]);
+                    console.error('Diff3WayMerge do_patch() cannot merge file failed:',
+                        r[1].filter(T => !T).length,
+                        r[2].filter((T, i) => !r[1][i]));
+                    console.error('Diff3WayMerge do_patch() merge file failed result:', [f.content]);
+                    this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.css}] . failed:[${r[1].filter(T => !T).length}]`);
                     continue;
                 }
                 f.content = r[0];
@@ -126,15 +132,18 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 }
                 const f = sc.passageDataItems.map.get(p.passage);
                 if (!f) {
-                    console.error('Diff3WayMerge do_patch() cannot find file.', [ri.mod, p.js]);
-                    this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.js}]`);
+                    console.error('Diff3WayMerge do_patch() cannot find file.', [ri.mod, p.passage]);
+                    this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.passage}]`);
                     continue;
                 }
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
-                    console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
-                    console.error('Diff3WayMerge do_patch() cannot merge file failed:', r[2].filter((T, i) => r[1][i]));
-                    this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r.filter(T => !T).length}]`);
+                    console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.passage, r]);
+                    console.error('Diff3WayMerge do_patch() cannot merge file failed:',
+                        r[1].filter(T => !T).length,
+                        r[2].filter((T, i) => !r[1][i]));
+                    console.error('Diff3WayMerge do_patch() merge file failed result:', [f.content]);
+                    this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.passage}] . failed:[${r[1].filter(T => !T).length}]`);
                     continue;
                 }
                 f.content = r[0];

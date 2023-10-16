@@ -1,21 +1,36 @@
-import {every, isArray, isNil, isString} from "lodash";
+import {every, isArray, isNil, isString, isObject, get} from "lodash";
 
 export function checkPatchFileItem(n: PatchFileItem): n is PatchFileItem {
+    // if (
+    //     // @ts-ignore
+    //     (isString(n.css) + isString(n.js) + isString(n.passage)) !== 1 ||
+    //     // @ts-ignore
+    //     (isNil(n.css) + isNil(n.js) + isNil(n.passage)) !== 2
+    // ) {
+    //     return false;
+    // }
     if (
-        // @ts-ignore
-        (isString(n.css) + isString(n.js) + isString(n.passage)) !== 1 ||
-        // @ts-ignore
-        (isNil(n.css) + isNil(n.js) + isNil(n.passage)) !== 2
+        (isString(n.css) && !isString(n.js) && !isString(n.passage)) ||
+        (!isString(n.css) && isString(n.js) && !isString(n.passage)) ||
+        (!isString(n.css) && !isString(n.js) && isString(n.passage))
     ) {
-        return false;
+        if (!isString(n.fileDiff)) {
+            console.error('checkPatchFileItem false (!isString(n.fileDiff))', [n]);
+            return false;
+        }
+        if (!isString(n.fileBase)) {
+            console.error('checkPatchFileItem false (!isString(n.fileBase))', [n]);
+            return false;
+        }
+        return true;
     }
-    if (!isString(n.fileDiff)) {
-        return false;
-    }
-    if (!isString(n.fileBase)) {
-        return false;
-    }
-    return true;
+    console.error('checkPatchFileItem false', [
+        n,
+        (isString(n.css) && !isString(n.js) && !isString(n.passage)),
+        (!isString(n.css) && isString(n.js) && !isString(n.passage)),
+        (!isString(n.css) && !isString(n.js) && isString(n.passage)),
+    ]);
+    return false;
 }
 
 export interface PatchFileItem {
@@ -51,8 +66,14 @@ export interface Diff3WayMergeParams {
 }
 
 export function checkParams(a: any): a is Diff3WayMergeParams {
-    if (isArray(a) && every(a, checkPatchFileItem)) {
+    if (isObject(a) && isArray(get(a, 'patchFileList')) && every(get(a, 'patchFileList'), checkPatchFileItem)) {
         return true;
     }
+    console.error('checkParams false', [
+        a,
+        isObject(a),
+        isArray(get(a, 'patchFileList')),
+        every(a, checkPatchFileItem),
+    ]);
     return false;
 }

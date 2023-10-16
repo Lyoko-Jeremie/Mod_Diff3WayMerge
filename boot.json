@@ -6,6 +6,7 @@
   "scriptFileList_earlyload": [
   ],
   "scriptFileList_inject_early": [
+    "dist/Diff3WayMerge.js"
   ],
   "scriptFileList_preload": [
   ],
