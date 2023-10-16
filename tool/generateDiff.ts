@@ -19,4 +19,13 @@ export function generateDiff(
     return covertDiff2DiffFormat(d02);
 }
 
+// export function generateDiff2(
+//     dmp: diff_match_patch,
+//     modBase: string,
+//     modDiff: string,
+// ): string {
+//     const d02 = dmp.patch_make(modBase, modDiff);
+//     return dmp.patch_toText(d02);
+// }
+
 
