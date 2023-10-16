@@ -1,0 +1,41 @@
+{
+  "name": "Diff3WayMergeExampleMode",
+  "version": "1.0.0",
+  "styleFileList": [],
+  "scriptFileList_earlyload": [],
+  "scriptFileList_inject_early": [],
+  "scriptFileList_preload": [],
+  "scriptFileList": [],
+  "tweeFileList": [],
+  "imgFileList": [],
+  "imgFileReplaceList": [],
+  "additionFile": [
+    "README.md"
+  ],
+  "addonPlugin": [
+    {
+      "modName": "Diff3WayMerge",
+      "addonName": "Diff3WayMergeAddon",
+      "modVersion": "^1.0.0",
+      "params": {
+        "patchFileList": [
+          {
+            "fileDiff": "mod\\patch_diff\\Widgets variablesStatic.twee.diff",
+            "fileBase": "mod\\origin_file\\Widgets variablesStatic.twee",
+            "passage": "Widgets variablesStatic"
+          }
+        ]
+      }
+    }
+  ],
+  "dependenceInfo": [
+    {
+      "modName": "ModLoader",
+      "version": "^1.5.3"
+    },
+    {
+      "modName": "Diff3WayMerge",
+      "version": "^1.0.0"
+    }
+  ]
+}
