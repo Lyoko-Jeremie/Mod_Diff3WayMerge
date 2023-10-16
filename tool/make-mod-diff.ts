@@ -2,7 +2,7 @@ import {exit} from 'process';
 import {readdir, stat, readFile, writeFile} from 'fs';
 import {join} from 'path';
 import {promisify} from 'util';
-import {generateDiff, generateDiff2} from './generateDiff';
+import {generateDiff, /*generateDiff2*/} from './generateDiff';
 import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
 
 ;(async () => {
@@ -11,8 +11,11 @@ import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
 
     const base_dir = process.argv[2] || './mod';
 
-    const mod_file_dir = join(base_dir, 'mod_file');
+    const mod_file_dir_n = 'mod_file';
+    const mod_file_dir = join(base_dir, mod_file_dir_n);
+    const origin_file_dir_n = 'origin_file';
     const origin_file_dir = join(base_dir, 'origin_file');
+    const patch_file_dir_n = 'patch_diff';
     const patch_file_dir = join(base_dir, 'patch_diff');
 
     const dmp = new diff_match_patch();
@@ -110,16 +113,16 @@ import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
 
     for (const f of files_twee_passage_diff) {
         patchFileList.push({
-            fileDiff: join(patch_file_dir, f),
-            fileBase: join(origin_file_dir, f.replace('.diff', '')),
+            fileDiff: join(patch_file_dir_n, f).replace('\\', '/'),
+            fileBase: join(origin_file_dir_n, f.replace('.diff', '')).replace('\\', '/'),
             passage: f.replace('.diff', '').replace('.twee', ''),  // TODO
         });
     }
     for (const f of files_js_diff) {
         patchFileList.push({
-            fileDiff: join(patch_file_dir, f),
-            fileBase: join(origin_file_dir, f.replace('.diff', '')),
-            js: f.replace('.diff', '').replace('.js', ''),  // TODO
+            fileDiff: join(patch_file_dir_n, f).replace('\\', '/'),
+            fileBase: join(origin_file_dir_n, f.replace('.diff', '')).replace('\\', '/'),
+            js: f.replace('.diff', ''),
         });
     }
 
@@ -128,7 +131,23 @@ import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
     };
     addList.push(adObj);
     console.log('addList', addList);
+
+    bootJ.additionFile = bootJ.additionFile || [];
+    let additionFile: string[] = bootJ.additionFile;
+    const fileSet = new Set<string>();
+    patchFileList.forEach(T => {
+        fileSet.add(T.fileDiff);
+        fileSet.add(T.fileBase);
+    });
+    additionFile = additionFile.filter(T => {
+        return !fileSet.has(T);
+    });
+    fileSet.forEach(T => {
+        additionFile.push(T);
+    });
+
     bootJ.addonPlugin = addList;
+    bootJ.additionFile = additionFile;
 
     await promisify(writeFile)(join(base_dir, 'boot.json'), JSON.stringify(bootJ, null, 2), 'utf8');
 
