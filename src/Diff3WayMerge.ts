@@ -96,7 +96,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
                         r[1].filter(T => !T).length,
                         r[2].filter((T, i) => !r[1][i]));
-                    console.error('Diff3WayMerge do_patch() merge file failed result:', [f.content]);
+                    console.error('Diff3WayMerge do_patch() merge file failed result:', [r[0]]);
                     this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r[1].filter(T => !T).length}]`);
                     continue;
                 }
@@ -119,7 +119,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
                         r[1].filter(T => !T).length,
                         r[2].filter((T, i) => !r[1][i]));
-                    console.error('Diff3WayMerge do_patch() merge file failed result:', [f.content]);
+                    console.error('Diff3WayMerge do_patch() merge file failed result:', [r[0]]);
                     this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.css}] . failed:[${r[1].filter(T => !T).length}]`);
                     continue;
                 }
@@ -142,7 +142,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
                         r[1].filter(T => !T).length,
                         r[2].filter((T, i) => !r[1][i]));
-                    console.error('Diff3WayMerge do_patch() merge file failed result:', [f.content]);
+                    console.error('Diff3WayMerge do_patch() merge file failed result:', [r[0]]);
                     this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.passage}] . failed:[${r[1].filter(T => !T).length}]`);
                     continue;
                 }
