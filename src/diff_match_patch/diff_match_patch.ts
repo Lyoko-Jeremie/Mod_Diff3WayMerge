@@ -1891,7 +1891,7 @@ export class diff_match_patch {
      * @param {!Array.<!patch_obj>} patches Array of Patch objects.
      * @return {string} The padding string added to each side.
      */
-    public patch_addPadding(patches: patch_obj[]): string {
+    private patch_addPadding(patches: patch_obj[]): string {
         var paddingLength = this.Patch_Margin;
         var nullPadding = '';
         for (var x = 1; x <= paddingLength; x++) {
@@ -1950,7 +1950,7 @@ export class diff_match_patch {
      * Intended to be called only from within patch_apply.
      * @param {!Array.<!patch_obj>} patches Array of Patch objects.
      */
-    public patch_splitMax(patches: patch_obj[]) {
+    private patch_splitMax(patches: patch_obj[]) {
         var patch_size = this.Match_MaxBits;
         for (var x = 0; x < patches.length; x++) {
             if (patches[x].length1 <= patch_size) {
