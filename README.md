@@ -89,4 +89,19 @@ this mod export addon:
 ]
 ```
 
+---
+
+## example mod
+
+example mod in the `mod` dir.
+
+
+1. copy origin `xxx.js` file from game to `origin_file` dir as `xxx.js`. copy origin passage `AAA`(passage name) from game to `origin_file` dir as `AAA.twee`.
+2. copy the same file from `origin_file` dir to `mod_file` dir , modify it as you want.
+3. use `node <path to/dist-tool/make-mod-diff.js> <path to mod dir>` to auto generate diff info in `patch_diff` and auto fill `boot.json`
+
+```
+node ./dist-tool/make-mod-diff.js mod
+```
+
 
