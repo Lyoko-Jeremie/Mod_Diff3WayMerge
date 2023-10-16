@@ -17,6 +17,7 @@ const config = {
   // https://webpack.js.org/configuration/entry-context/#entry
   entry: {
     generateDiff: './tool/generateDiff.ts',
+    run: './tool/run.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist-tool'),
