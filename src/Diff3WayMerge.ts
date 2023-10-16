@@ -93,6 +93,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
+                    console.error('Diff3WayMerge do_patch() cannot merge file failed:', r[2].filter((T, i) => r[1][i]));
                     this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r.filter(T => !T).length}]`);
                     continue;
                 }
@@ -112,6 +113,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
+                    console.error('Diff3WayMerge do_patch() cannot merge file failed:', r[2].filter((T, i) => r[1][i]));
                     this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r.filter(T => !T).length}]`);
                     continue;
                 }
@@ -131,6 +133,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
+                    console.error('Diff3WayMerge do_patch() cannot merge file failed:', r[2].filter((T, i) => r[1][i]));
                     this.log.error(`Diff3WayMerge do_patch() cannot merge file: [${ri.mod.name}] [${p.js}] . failed:[${r.filter(T => !T).length}]`);
                     continue;
                 }

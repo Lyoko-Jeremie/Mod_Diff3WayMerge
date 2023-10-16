@@ -1,4 +1,11 @@
-import {Diff, DIFF_DELETE, DIFF_EQUAL, DIFF_INSERT, diff_match_patch} from "./diff_match_patch/diff_match_patch";
+import {
+    Diff,
+    DIFF_DELETE,
+    DIFF_EQUAL,
+    DIFF_INSERT,
+    diff_match_patch,
+    patch_obj
+} from "./diff_match_patch/diff_match_patch";
 import {every, isArray, isNumber, isString} from "lodash";
 
 export interface DiffFormat {
@@ -22,7 +29,7 @@ export function mergeFile(
     gameFile: string,
     modBase: string,
     modDiff: Diff[],
-) {
+): [string, boolean[], patch_obj[]] {
     // calc modBase -> modDiff
     // calc modBase -> gameFile
     // modBase -> patchTo -> gameFile -> patchTo -> modDiff
@@ -31,6 +38,7 @@ export function mergeFile(
     // const d02 = dmp.diff_main(modBase, modDiff);
     const p1 = dmp.patch_make(modBase, d01);
     const p2 = dmp.patch_make(modBase, modDiff);
-    const rr = dmp.patch_apply(p1.concat(p2), modBase);
-    return rr;
+    const pp = p1.concat(p2);
+    const rr = dmp.patch_apply(pp, modBase);
+    return [rr[0], rr[1], pp];
 }
