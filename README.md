@@ -96,9 +96,26 @@ this mod export addon:
 example mod in the `mod` dir.
 
 
-1. copy origin `xxx.js` file from game to `origin_file` dir as `xxx.js`. copy origin passage `AAA`(passage name) from game to `origin_file` dir as `AAA.twee`.
+1. copy origin `xxx.js` file from game (english verion) to `origin_file` dir as `xxx.js`. copy origin passage `AAA`(passage name) from game to `origin_file` dir as `AAA.twee`.
 2. copy the same file from `origin_file` dir to `mod_file` dir , modify it as you want.
-3. use `node <path to/dist-tool/make-mod-diff.js> <path to mod dir>` to auto generate diff info in `patch_diff` and auto fill `boot.json`
+3. use `node <path to/dist-tool/make-mod-diff.js> <path to mod dir>` to auto generate diff info in `patch_diff` and auto fill `boot.json`.
+4. use the mod pack tool `packModZip.ts` in ModLoader to pack the mod.
+
+command example:
+
+```
+node ./dist-tool/make-mod-diff.js mod
+```
+
+
+## 范例 mod
+
+1. 从英文原版游戏复制你要修改的原始文件到`origin_file`文件夹。例如复制原始游戏的`xxx.js`到`origin_file`作为`xxx.js`，或从原始游戏找到整个passage（从`:: passage name`的双冒号开始到下一个双冒号的前一行或者文件结尾结束）到`origin_file`并命名为`passage name.twee`。
+2. 从`origin_file`复制相同的文件到`mod_file`文件夹，按照你的需要修改它。
+3. 按照 `node <path to/dist-tool/make-mod-diff.js> <path to mod dir>` 的格式使用调用 `make-mod-diff.js` 来自动生成diff文件到`patch_diff`文件夹，并自动填充`boot.json`文件中的`Diff3WayMergeAddon`和`additionFile`。
+4. 使用ModLoader中的mod打包工具`packModZip.ts`打包生成 mod.zip。
+
+命令范例：
 
 ```
 node ./dist-tool/make-mod-diff.js mod
