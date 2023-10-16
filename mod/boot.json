@@ -10,7 +10,9 @@
   "imgFileList": [],
   "imgFileReplaceList": [],
   "additionFile": [
-    "README.md"
+    "README.md",
+    "patch_diff/Widgets variablesStatic.twee.diff",
+    "origin_file/Widgets variablesStatic.twee"
   ],
   "addonPlugin": [
     {
@@ -20,8 +22,8 @@
       "params": {
         "patchFileList": [
           {
-            "fileDiff": "mod\\patch_diff\\Widgets variablesStatic.twee.diff",
-            "fileBase": "mod\\origin_file\\Widgets variablesStatic.twee",
+            "fileDiff": "patch_diff/Widgets variablesStatic.twee.diff",
+            "fileBase": "origin_file/Widgets variablesStatic.twee",
             "passage": "Widgets variablesStatic"
           }
         ]
