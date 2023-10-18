@@ -188,7 +188,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 // console.log('rrr', rrr);
 
                 // const r = mergeFile(dmp, gameFile, b, DiffFormat2Diff(d));
-                const r = mergeFile_v2(dmp, gameFile, b, mf);
+                const r = mergeFile_v2(dmp, f.content, b, mf);
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.passage, r]);
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
