@@ -429,7 +429,7 @@ export class diff_match_patch {
      *     The zeroth element of the array of unique strings is intentionally blank.
      * @private
      */
-    private diff_linesToChars_(text1: string, text2: string): {
+    public diff_linesToChars_(text1: string, text2: string): {
         chars1: string, chars2: string, lineArray: string[],
     } {
         var lineArray = [];  // e.g. lineArray[4] == 'Hello\n'
@@ -498,7 +498,7 @@ export class diff_match_patch {
      * @param {!Array.<string>} lineArray Array of unique strings.
      * @private
      */
-    private diff_charsToLines_(diffs: Diff[], lineArray: string[]) {
+    public diff_charsToLines_(diffs: Diff[], lineArray: string[]) {
         for (var i = 0; i < diffs.length; i++) {
             var chars = diffs[i][1];
             var text = [];
