@@ -17,8 +17,11 @@ this mod export addon:
         "patchFileList": [
           {
             // the info of modify that mod want to do in the game, provide as a diff file, it is calc base on fileBase
-            // mod 对游戏的修改，以 diff 文件的形式提供，这个修改基于 fileBase 计算产生
+            // mod 对游戏的修改，以 diff 文件的形式提供，这个修改基于 fileBase 到 fileMod 的变更计算产生
             "fileDiff": "pathTo/passageA.diff",
+            // the file after modify, this file is the result that mod want to do
+            // mod 修改后的文件，这个文件是 mod 所期望的结果
+            "fileMod": "pathTo/passageA.txt",
             // 来自游戏的原始文件，上面的 fileDiff 应用到这个文件上后产生的结果是mod所期望的结果
             // this file come from origin game, the result of apply fileDiff to this file is what mod want to do
             "fileBase": "pathTo/passageA.txt",
@@ -30,16 +33,19 @@ this mod export addon:
           },
           {
             "fileDiff": "pathTo/passageB.diff",
+            "fileMod": "pathTo/passageB.txt",
             "fileBase": "pathTo/passageB.txt",
             "passage": "passageB"
           },
           {
             "fileDiff": "pathTo/passageC.diff",
+            "fileMod": "pathTo/passageC.txt",
             "fileBase": "pathTo/passageC.txt",
             "passage": "passageC"
           },
           {
             "fileDiff": "pathTo/aaa_js.diff",
+            "fileMod": "pathTo/aaa.js",
             "fileBase": "pathTo/aaa.js",
             // 这个patch需要应用到的游戏中的 js 文件
             // the js file in the game that this patch need to apply to
@@ -47,6 +53,7 @@ this mod export addon:
           },
           {
             "fileDiff": "pathTo/bbb_css.diff",
+            "fileMod": "pathTo/bbb.css",
             "fileBase": "pathTo/bbb.css",
             "css": "bbb.css"
           }

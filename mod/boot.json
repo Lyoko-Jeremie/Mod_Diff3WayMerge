@@ -12,7 +12,8 @@
   "additionFile": [
     "README.md",
     "patch_diff/Widgets variablesStatic.twee.diff",
-    "origin_file/Widgets variablesStatic.twee"
+    "origin_file/Widgets variablesStatic.twee",
+    "mod_file/Widgets variablesStatic.twee"
   ],
   "addonPlugin": [
     {
@@ -23,6 +24,7 @@
         "patchFileList": [
           {
             "fileDiff": "patch_diff/Widgets variablesStatic.twee.diff",
+            "fileMod": "mod_file/Widgets variablesStatic.twee",
             "fileBase": "origin_file/Widgets variablesStatic.twee",
             "passage": "Widgets variablesStatic"
           }
