@@ -86,10 +86,10 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
         const dmp = new diff_match_patch();
         for (const p of params.patchFileList) {
             if (isString(p.js)) {
-                const d = await this.readDiffFormatFile(ri, p.fileDiff);
+                // const d = await this.readDiffFormatFile(ri, p.fileDiff);
                 const b = await this.readOriginFile(ri, p.fileBase);
                 const mf = await this.readOriginFile(ri, p.fileMod);
-                if (!d || !b || !mf) {
+                if (/*!d || */!b || !mf) {
                     continue;
                 }
                 const f = sc.scriptFileItems.map.get(p.js);

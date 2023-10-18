@@ -14,10 +14,10 @@ export function checkPatchFileItem(n: PatchFileItem): n is PatchFileItem {
         (!isString(n.css) && isString(n.js) && !isString(n.passage)) ||
         (!isString(n.css) && !isString(n.js) && isString(n.passage))
     ) {
-        if (!isString(n.fileDiff)) {
-            console.error('checkPatchFileItem false (!isString(n.fileDiff))', [n]);
-            return false;
-        }
+        // if (!isString(n.fileDiff)) {
+        //     console.error('checkPatchFileItem false (!isString(n.fileDiff))', [n]);
+        //     return false;
+        // }
         if (!isString(n.fileBase)) {
             console.error('checkPatchFileItem false (!isString(n.fileBase))', [n]);
             return false;

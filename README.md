@@ -12,12 +12,13 @@ this mod export addon:
     {
       "modName": "Diff3WayMerge",
       "addonName": "Diff3WayMergeAddon",
-      "modVersion": "^1.0.0",
+      "modVersion": "^1.1.0",
       "params": {
         "patchFileList": [
           {
             // the info of modify that mod want to do in the game, provide as a diff file, it is calc base on fileBase
             // mod 对游戏的修改，以 diff 文件的形式提供，这个修改基于 fileBase 到 fileMod 的变更计算产生
+            // optional start from 1.1.0 now !!! will remove later !!!
             "fileDiff": "pathTo/passageA.diff",
             // the file after modify, this file is the result that mod want to do
             // mod 修改后的文件，这个文件是 mod 所期望的结果
@@ -68,7 +69,7 @@ this mod export addon:
     },
     {
       "modName": "Diff3WayMerge",
-      "version": "^1.0.0"
+      "version": "^1.1.0"
     }
   ]
 }
