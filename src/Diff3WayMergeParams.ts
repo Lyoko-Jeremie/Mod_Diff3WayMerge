@@ -22,6 +22,10 @@ export function checkPatchFileItem(n: PatchFileItem): n is PatchFileItem {
             console.error('checkPatchFileItem false (!isString(n.fileBase))', [n]);
             return false;
         }
+        if (!isString(n.fileMod)) {
+            console.error('checkPatchFileItem false (!isString(n.fileMod))', [n]);
+            return false;
+        }
         return true;
     }
     console.error('checkPatchFileItem false', [
@@ -55,6 +59,11 @@ export interface PatchFileItem {
      * the origin file path
      */
     fileBase: string;
+    /**
+     * the mod file path
+     * the fileDiff must calc from fileBase to fileMod
+     */
+    fileMod: string;
 
     passage?: string;
     js?: string;

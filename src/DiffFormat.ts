@@ -83,6 +83,31 @@ export function mergeFile(
     return [rr[0], rr[1], pp];
 }
 
+export function mergeFile_v2(
+    dmp: diff_match_patch,
+    gameFile: string,
+    modBase: string,
+    modFile: string,
+): [string, boolean[], patch_obj[]] {
+    // calc modBase -> modDiff
+    // calc modBase -> gameFile
+    // modBase -> patchTo -> gameFile -> patchTo -> modDiff
+    // we get modBase -> gameFile -> modDiff
+
+    const newBase = modBase.replaceAll('\r\n', '\n').trimEnd();
+    const d01 = dmp.diff_main(newBase, gameFile.replaceAll('\r\n', '\n').trimEnd());
+    const p1 = dmp.patch_make(newBase, d01);
+
+    const d02 = dmp.diff_main(newBase, modFile.replaceAll('\r\n', '\n').trimEnd());
+    const p2 = dmp.patch_make(newBase, d02);
+
+    // const p12 = dmp.patch_make(newBase, d01.concat(d02));
+
+    const pp = p1.concat(p2);
+    const rr = dmp.patch_apply(pp, newBase);
+    return [rr[0], rr[1], pp];
+}
+
 export function mergeFile_t(
     dmp: diff_match_patch,
     gameFile: string,

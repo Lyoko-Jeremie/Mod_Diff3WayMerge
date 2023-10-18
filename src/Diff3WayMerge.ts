@@ -9,7 +9,13 @@ import {isNil, isString, isArray, every, isNumber} from 'lodash';
 import {
     diff_match_patch,
 } from './diff_match_patch/diff_match_patch';
-import {checkDiffFormatFile, DiffFormat2Diff, mergeFile, mergeFile_t} from "./DiffFormat";
+import {
+    checkDiffFormatFile,
+    DiffFormat2Diff,
+    mergeFile,
+    mergeFile_t,
+    mergeFile_v2,
+} from "./DiffFormat";
 import {checkParams} from "./Diff3WayMergeParams";
 
 export interface ModMergeInfo {
@@ -82,7 +88,8 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
             if (isString(p.js)) {
                 const d = await this.readDiffFormatFile(ri, p.fileDiff);
                 const b = await this.readOriginFile(ri, p.fileBase);
-                if (!d || !b) {
+                const mf = await this.readOriginFile(ri, p.fileMod);
+                if (!d || !b || !mf) {
                     continue;
                 }
                 const f = sc.scriptFileItems.map.get(p.js);
@@ -101,7 +108,8 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                         this.log.warn(`Diff3WayMerge do_patch() origin file changed: [${ri.mod.name}] [${p.js}]`);
                     }
                 }
-                const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
+                // const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
+                const r = mergeFile_v2(dmp, f.content, b, mf);
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
@@ -115,7 +123,8 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
             } else if (isString(p.css)) {
                 const d = await this.readDiffFormatFile(ri, p.fileDiff);
                 const b = await this.readOriginFile(ri, p.fileBase);
-                if (!d || !b) {
+                const mf = await this.readOriginFile(ri, p.fileMod);
+                if (!d || !b || !mf) {
                     continue;
                 }
                 const f = sc.styleFileItems.map.get(p.css);
@@ -134,7 +143,8 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                         this.log.warn(`Diff3WayMerge do_patch() origin file changed: [${ri.mod.name}] [${p.css}]`);
                     }
                 }
-                const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
+                // const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
+                const r = mergeFile_v2(dmp, f.content, b, mf);
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.css, r]);
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
@@ -148,7 +158,8 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
             } else if (isString(p.passage)) {
                 const d = await this.readDiffFormatFile(ri, p.fileDiff);
                 const b = await this.readOriginFile(ri, p.fileBase);
-                if (!d || !b) {
+                const mf = await this.readOriginFile(ri, p.fileMod);
+                if (!d || !b || !mf) {
                     continue;
                 }
                 const f = sc.passageDataItems.map.get(p.passage);
@@ -175,7 +186,9 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 }
                 // const rrr = mergeFile_t(dmp, gameFile, b, DiffFormat2Diff(d));
                 // console.log('rrr', rrr);
-                const r = mergeFile(dmp, gameFile, b, DiffFormat2Diff(d));
+
+                // const r = mergeFile(dmp, gameFile, b, DiffFormat2Diff(d));
+                const r = mergeFile_v2(dmp, gameFile, b, mf);
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.passage, r]);
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
@@ -198,8 +211,19 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
     async readOriginFile(ri: ModMergeInfo, fName: string) {
         const fd = ri.modZip.zip.file(fName);
         if (!fd) {
-            console.error('Diff3WayMerge readOriginFile() cannot find diff file.', [ri.mod, fName]);
-            this.log.error(`Diff3WayMerge readOriginFile() cannot find diff file: [${ri.mod.name}] [${fName}]`);
+            console.error('Diff3WayMerge readOriginFile() cannot find file.', [ri.mod, fName]);
+            this.log.error(`Diff3WayMerge readOriginFile() cannot find file: [${ri.mod.name}] [${fName}]`);
+            return undefined;
+        }
+        const dd = await fd.async('string');
+        return dd;
+    }
+
+    async readModFile(ri: ModMergeInfo, fName: string) {
+        const fd = ri.modZip.zip.file(fName);
+        if (!fd) {
+            console.error('Diff3WayMerge readModFile() cannot find file.', [ri.mod, fName]);
+            this.log.error(`Diff3WayMerge readModFile() cannot find file: [${ri.mod.name}] [${fName}]`);
             return undefined;
         }
         const dd = await fd.async('string');
