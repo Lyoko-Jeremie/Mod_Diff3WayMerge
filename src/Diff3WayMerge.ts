@@ -9,7 +9,7 @@ import {isNil, isString, isArray, every, isNumber} from 'lodash';
 import {
     diff_match_patch,
 } from './diff_match_patch/diff_match_patch';
-import {checkDiffFormatFile, DiffFormat2Diff, mergeFile} from "./DiffFormat";
+import {checkDiffFormatFile, DiffFormat2Diff, mergeFile, mergeFile_t} from "./DiffFormat";
 import {checkParams} from "./Diff3WayMergeParams";
 
 export interface ModMergeInfo {
@@ -45,10 +45,11 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
 
     async afterPatchModToGame() {
         const scOld = this.gSC2DataManager.getSC2DataInfoAfterPatch();
+        const scOrigin = this.gSC2DataManager.getSC2DataInfoCache();
         const sc = scOld.cloneSC2DataInfo();
         for (const [name, ri] of this.info) {
             try {
-                await this.do_patch(ri, sc);
+                await this.do_patch(ri, sc, scOrigin);
             } catch (e: any | Error) {
                 console.error(e);
                 this.log.error(`Diff3WayMerge: [${name}] ${e?.message ? e.message : e}`);
@@ -57,7 +58,7 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
         this.gModUtils.replaceFollowSC2DataInfo(sc, scOld);
     }
 
-    async do_patch(ri: ModMergeInfo, sc: SC2DataInfo) {
+    async do_patch(ri: ModMergeInfo, sc: SC2DataInfo, scOrigin: SC2DataInfo) {
         const ad = ri.mod.bootJson.addonPlugin?.find((T: ModBootJsonAddonPlugin) => {
             return T.modName === 'Diff3WayMerge'
                 && T.addonName === 'Diff3WayMergeAddon';
@@ -90,6 +91,16 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                     this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.js}]`);
                     continue;
                 }
+                const originC = scOrigin.scriptFileItems.map.get(p.js)?.content;
+                if (!originC) {
+                    // never go there
+                    console.error('Diff3WayMerge do_patch() cannot find origin file.', [ri.mod, p.js]);
+                } else {
+                    if (originC !== b) {
+                        console.warn('Diff3WayMerge do_patch() origin file changed.', [ri.mod, p.js, dmp.patch_toText(dmp.patch_make(originC, b))]);
+                        this.log.warn(`Diff3WayMerge do_patch() origin file changed: [${ri.mod.name}] [${p.js}]`);
+                    }
+                }
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.js, r]);
@@ -112,6 +123,16 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                     console.error('Diff3WayMerge do_patch() cannot find file.', [ri.mod, p.css]);
                     this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.css}]`);
                     continue;
+                }
+                const originC = scOrigin.scriptFileItems.map.get(p.css)?.content;
+                if (!originC) {
+                    // never go there
+                    console.error('Diff3WayMerge do_patch() cannot find origin file.', [ri.mod, p.css]);
+                } else {
+                    if (originC !== b) {
+                        console.warn('Diff3WayMerge do_patch() origin file changed.', [ri.mod, p.css, dmp.patch_toText(dmp.patch_make(originC, b))]);
+                        this.log.warn(`Diff3WayMerge do_patch() origin file changed: [${ri.mod.name}] [${p.css}]`);
+                    }
                 }
                 const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
@@ -136,7 +157,25 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                     this.log.error(`Diff3WayMerge do_patch() cannot find file: [${ri.mod.name}] [${p.passage}]`);
                     continue;
                 }
-                const r = mergeFile(dmp, b, f.content, DiffFormat2Diff(d));
+                const gameFile = `:: ${f.name}`
+                    + `${f.tags.length === 0 ? '' : (' [' + f.tags[0] + ']')}`
+                    + `\n${f.content}`;
+                const originP = scOrigin.passageDataItems.map.get(p.passage);
+                if (!originP) {
+                    // never go there
+                    console.error('Diff3WayMerge do_patch() cannot find origin file.', [ri.mod, p.js]);
+                } else {
+                    const data = `:: ${originP.name}`
+                        + `${originP.tags.length === 0 ? '' : (' [' + originP.tags[0] + ']')}`
+                        + `\n${originP.content}`;
+                    if (data.trimEnd() !== b.replace(/\r\n/g, '\n').trimEnd()) {
+                        console.warn('Diff3WayMerge do_patch() origin file changed.', [ri.mod, p.passage, data.trimEnd(), b.replace(/\r\n/g, '\n').trimEnd(), dmp.patch_toText(dmp.patch_make(data, b))]);
+                        this.log.warn(`Diff3WayMerge do_patch() origin file changed: [${ri.mod.name}] [${p.passage}]`);
+                    }
+                }
+                // const rrr = mergeFile_t(dmp, gameFile, b, DiffFormat2Diff(d));
+                // console.log('rrr', rrr);
+                const r = mergeFile(dmp, gameFile, b, DiffFormat2Diff(d));
                 if (!every(r[1], T => T)) {
                     console.error('Diff3WayMerge do_patch() cannot merge file.', [ri.mod, p.passage, r]);
                     console.error('Diff3WayMerge do_patch() cannot merge file failed:',
