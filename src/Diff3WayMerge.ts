@@ -121,10 +121,10 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 }
                 f.content = r[0];
             } else if (isString(p.css)) {
-                const d = await this.readDiffFormatFile(ri, p.fileDiff);
+                // const d = await this.readDiffFormatFile(ri, p.fileDiff);
                 const b = await this.readOriginFile(ri, p.fileBase);
                 const mf = await this.readOriginFile(ri, p.fileMod);
-                if (!d || !b || !mf) {
+                if (/*!d || */!b || !mf) {
                     continue;
                 }
                 const f = sc.styleFileItems.map.get(p.css);
@@ -156,10 +156,10 @@ export class Diff3WayMerge implements AddonPluginHookPointEx {
                 }
                 f.content = r[0];
             } else if (isString(p.passage)) {
-                const d = await this.readDiffFormatFile(ri, p.fileDiff);
+                // const d = await this.readDiffFormatFile(ri, p.fileDiff);
                 const b = await this.readOriginFile(ri, p.fileBase);
                 const mf = await this.readOriginFile(ri, p.fileMod);
-                if (!d || !b || !mf) {
+                if (/*!d || */!b || !mf) {
                     continue;
                 }
                 const f = sc.passageDataItems.map.get(p.passage);

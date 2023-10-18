@@ -23,7 +23,6 @@
       "params": {
         "patchFileList": [
           {
-            "fileDiff": "patch_diff/Widgets variablesStatic.twee.diff",
             "fileMod": "mod_file/Widgets variablesStatic.twee",
             "fileBase": "origin_file/Widgets variablesStatic.twee",
             "passage": "Widgets variablesStatic"
