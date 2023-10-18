@@ -114,6 +114,7 @@ import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
     for (const f of files_twee_passage_diff) {
         patchFileList.push({
             fileDiff: join(patch_file_dir_n, f).replace('\\', '/'),
+            fileMod: join(mod_file_dir_n, f.replace('.diff', '')).replace('\\', '/'),
             fileBase: join(origin_file_dir_n, f.replace('.diff', '')).replace('\\', '/'),
             passage: f.replace('.diff', '').replace('.twee', ''),  // TODO
         });
@@ -121,6 +122,7 @@ import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
     for (const f of files_js_diff) {
         patchFileList.push({
             fileDiff: join(patch_file_dir_n, f).replace('\\', '/'),
+            fileMod: join(mod_file_dir_n, f.replace('.diff', '')).replace('\\', '/'),
             fileBase: join(origin_file_dir_n, f.replace('.diff', '')).replace('\\', '/'),
             js: f.replace('.diff', ''),
         });
@@ -138,6 +140,7 @@ import {diff_match_patch} from "../src/diff_match_patch/diff_match_patch";
     patchFileList.forEach(T => {
         fileSet.add(T.fileDiff);
         fileSet.add(T.fileBase);
+        fileSet.add(T.fileMod);
     });
     additionFile = additionFile.filter(T => {
         return !fileSet.has(T);
