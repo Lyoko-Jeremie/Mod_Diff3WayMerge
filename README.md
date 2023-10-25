@@ -64,10 +64,6 @@ this mod export addon:
   ],
   "dependenceInfo": [
     {
-      "modName": "ModLoader",
-      "version": "^1.5.3"
-    },
-    {
       "modName": "Diff3WayMerge",
       "version": "^1.1.0"
     }
