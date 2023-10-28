@@ -15,7 +15,7 @@
     "build:webpack": "webpack -c ./webpack.config.js",
     "tool": "webpack -c ./webpack-tool.config.js"
   },
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@4.0.0",
   "dependencies": {
     "diff": "^5.1.0",
     "diff3": "^0.0.4",
